@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convite de Aniversário</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes confetti-fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background: 
+                repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(220, 20, 60, 0.1) 35px, rgba(220, 20, 60, 0.1) 70px),
+                repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(178, 34, 34, 0.08) 35px, rgba(178, 34, 34, 0.08) 70px),
+                linear-gradient(135deg, #ffe6e6 0%, #fff0f0 25%, #ffcccc 50%, #fff5f5 75%, #ffe6e6 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 15% 20%, rgba(220, 20, 60, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(255, 99, 71, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(205, 92, 92, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 90% 70%, rgba(178, 34, 34, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .convite {
+            background: linear-gradient(135deg, #fff5f7 0%, #ffe6ec 50%, #fff0f5 100%);
+            border-radius: 30px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25),
+                        0 0 60px rgba(255, 105, 180, 0.2),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            padding: 60px 50px;
+            max-width: 650px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: slideInDown 0.8s ease-out;
+            border: 2px solid rgba(255, 192, 203, 0.3);
+        }
+        
+        .convite::before {
+            content: '🎉';
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            font-size: 50px;
+            opacity: 0.5;
+            animation: bounce 2s infinite;
+        }
+        
+        .convite::after {
+            content: '🎂';
+            position: absolute;
+            bottom: 5px;
+            right: 10px;
+            font-size: 50px;
+            opacity: 0.5;
+            animation: bounce 2s infinite 0.5s;
+        }
+        
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+        
+        .star {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0.6;
+            animation: twinkle 2s infinite;
+        }
+        
+        .titulo {
+            color: #ff1493;
+            font-family: 'Poppins', sans-serif;
+            font-size: 52px;
+            margin-bottom: 15px;
+            font-weight: 800;
+            text-shadow: 3px 3px 0 rgba(255, 105, 180, 0.2),
+                         -2px -2px 0 rgba(255, 192, 203, 0.3);
+            letter-spacing: 1px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .subtitulo {
+            color: #d946a6;
+            font-size: 26px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff1493, #d946a6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .decoracao {
+            margin: 20px 0;
+            font-size: 35px;
+            letter-spacing: 0px;
+        }
+        
+        .secao {
+            margin: 20px 0;
+            padding: 22px 25px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 240, 245, 0.7) 100%);
+            border-radius: 20px;
+            border-left: 6px solid #ff1493;
+            border: 2px solid rgba(255, 192, 203, 0.4);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .secao:hover {
+            transform: translateX(5px);
+            box-shadow: 0 12px 30px rgba(255, 105, 180, 0.15);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 240, 245, 0.9) 100%);
+        }
+        
+        .label {
+            color: #d946a6;
+            font-weight: 700;
+            font-size: 15px;
+            display: block;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.85;
+        }
+        
+        .valor {
+            color: #333;
+            font-size: 20px;
+            font-weight: 600;
+            color: #ff1493;
+        }
+        
+        .mensagem {
+            color: #555;
+            font-size: 17px;
+            line-height: 1.8;
+            font-style: italic;
+            margin: 35px 0;
+            padding: 25px;
+            background: linear-gradient(135deg, rgba(255, 192, 203, 0.25) 0%, rgba(255, 240, 245, 0.4) 100%);
+            border-radius: 20px;
+            border-left: 5px solid #ff69b4;
+            box-shadow: 0 8px 25px rgba(255, 192, 203, 0.15);
+            border: 2px solid rgba(255, 192, 203, 0.3);
+        }
+        
+        .baloes {
+            margin: 25px 0;
+            font-size: 30px;
+            letter-spacing: 18px;
+            animation: float 2.5s ease-in-out infinite;
+        }
+        
+        .rodape {
+            margin-top: 35px;
+            color: #666;
+            font-size: 15px;
+            border-top: 3px dashed #ffb6d9;
+            padding-top: 25px;
+            font-weight: 600;
+        }
+        
+        .rodape strong {
+            color: #ff1493;
+            font-size: 16px;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            margin: 12px 0;
+            border: 2px solid #ffb6d9;
+            border-radius: 12px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #ff1493;
+            box-shadow: 0 0 20px rgba(255, 20, 147, 0.2);
+            background: #fff;
+            transform: scale(1.02);
+        }
+        
+        button {
+            background: linear-gradient(135deg, #ff1493 0%, #d946a6 50%, #ff69b4 100%);
+            color: white;
+            border: none;
+            padding: 14px 35px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin: 12px 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.3);
+            font-family: 'Poppins', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 20, 147, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(-1px);
+        }
+        
+        .form-container {
+            display: none;
+        }
+        
+        .form-container.ativo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            
+            button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="convite" id="convite">
+        <div class="titulo">🎊 Parabéns! 🎊</div>
+        <div class="subtitulo">Você está convidado para a minha festa de aniversário!</div>
+        
+        <div class="decoracao">✨ ⭐ ✨</div>
+        
+        <div class="secao">
+            <span class="label">👤 Aniversariante</span>
+            <span class="valor" id="nomeAniversariante">Helo</span>
+        </div>
+        
+        <div class="secao">
+            <span class="label">📅 Data</span>
+            <span class="valor" id="dataEvento">31 de Janeiro de 2026</span>
+        </div>
+        
+        <div class="secao">
+            <span class="label">🕐 Horário</span>
+            <span class="valor" id="horarioEvento">15:00</span>
+        </div>
+        
+        <div class="secao">
+            <span class="label">📍 Local</span>
+            <span class="valor" id="localEvento">R. Maria Tomásia, 208 - Aldeota</span>
+        </div>
+        
+        <div class="mensagem" id="mensagemPersonalizada">
+            "-pensar na mensagem"
+        </div>
+        
+        <div class="baloes">🎈 🎁 🎈</div>
+    
+        
+        <button onclick="confirmarPresenca()">✅ Confirme sua Presença</button>
+    </div>
+    
+    <script>
+        function confirmarPresenca() {
+            const numero = "5585991666565";
+            const mensagem = "Olá!  Confirmo minha presença no aniversário! Muito obrigado pelo convite! ;3";
+            const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>
